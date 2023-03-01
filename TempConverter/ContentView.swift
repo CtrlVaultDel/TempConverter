@@ -8,14 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    var tempTypes = ["°C", "°F", "K"]
+    @State var inputTempValue = 212.00
+    @State var outputTempValue = 100.00
+    @State var inputTempType = "°F"
+    @State var outputTempType = "°C"
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Form{
+            VStack {
+                Text("Convert Temperature")
+                HStack {
+                    TextField("Value", value: $inputTempValue, format: .number)
+                        .frame(width: 30)
+                    Picker("", selection: $inputTempType){
+                        ForEach(tempTypes, id: \.self){
+                            temp in Text(temp)
+                        }
+                    }.frame(width: 1)
+                    Spacer(minLength: 30)
+                    Text("to").frame(width: 30)
+                    Spacer()
+                    Picker("", selection: $outputTempType){
+                        ForEach(tempTypes, id: \.self){
+                            temp in Text(temp)
+                        }
+                    }.frame(width:1)
+                }
+                
+                Spacer()
+//                Text("\(inputTempValue)\(inputTempType) is \(outputTempValue)\(outputTempType)")
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
